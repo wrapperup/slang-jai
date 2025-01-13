@@ -1,7 +1,7 @@
 //
 // This file was auto-generated using the following command:
 //
-// jai generate.jai
+// jai ./generate.jai
 //
 
 
@@ -147,10 +147,10 @@ SlangSeverity :: enum SlangSeverityIntegral {
     SLANG_SEVERITY_INTERNAL :: INTERNAL;
 }
 
-SlangDiagnosticFlags :: s32;
-SLANG_DIAGNOSTIC_FLAG :: enum s32 {
-    VERBOSE_PATHS            :: 1;
-    TREAT_WARNINGS_AS_ERRORS :: 2;
+SlangDiagnosticFlags :: SlangDiagnosticFlag;
+SlangDiagnosticFlag :: enum_flags s32 {
+    VERBOSE_PATHS            :: 0x1;
+    TREAT_WARNINGS_AS_ERRORS :: 0x2;
 
     SLANG_DIAGNOSTIC_FLAG_VERBOSE_PATHS            :: VERBOSE_PATHS;
     SLANG_DIAGNOSTIC_FLAG_TREAT_WARNINGS_AS_ERRORS :: TREAT_WARNINGS_AS_ERRORS;
@@ -324,16 +324,16 @@ SlangArchiveType :: enum SlangArchiveTypeIntegral {
 /*!
 Flags to control compilation behavior.
 */
-SlangCompileFlags :: u32;
-SLANG_COMPILE_FLAG :: enum s32 {
-    NO_MANGLING       :: 8;
+SlangCompileFlags :: SlangCompileFlag;
+SlangCompileFlag :: enum_flags s32 {
+    NO_MANGLING       :: 0x8;
 
-    NO_CODEGEN        :: 16;
+    NO_CODEGEN        :: 0x10;
 
-    OBFUSCATE         :: 32;
+    OBFUSCATE         :: 0x20;
 
-    NO_CHECKING       :: 0;
-    SPLIT_MIXED_TYPES :: 0;
+    NO_CHECKING       :: 0x0;
+    SPLIT_MIXED_TYPES :: 0x0;
 
     SLANG_COMPILE_FLAG_NO_MANGLING       :: NO_MANGLING;
 
@@ -347,15 +347,15 @@ SLANG_COMPILE_FLAG :: enum s32 {
 
 /*!
 @brief Flags to control code generation behavior of a compilation target */
-SlangTargetFlags :: u32;
-SLANG_TARGET_FLAG :: enum s32 {
-    PARAMETER_BLOCKS_USE_REGISTER_SPACES :: 16;
+SlangTargetFlags :: SlangTargetFlag;
+SlangTargetFlag :: enum_flags s32 {
+    PARAMETER_BLOCKS_USE_REGISTER_SPACES :: 0x10;
 
-    GENERATE_WHOLE_PROGRAM               :: 256;
+    GENERATE_WHOLE_PROGRAM               :: 0x100;
 
-    DUMP_IR                              :: 512;
+    DUMP_IR                              :: 0x200;
 
-    GENERATE_SPIRV_DIRECTLY              :: 1024;
+    GENERATE_SPIRV_DIRECTLY              :: 0x400;
 
     SLANG_TARGET_FLAG_PARAMETER_BLOCKS_USE_REGISTER_SPACES :: PARAMETER_BLOCKS_USE_REGISTER_SPACES;
 
@@ -366,7 +366,7 @@ SLANG_TARGET_FLAG :: enum s32 {
     SLANG_TARGET_FLAG_GENERATE_SPIRV_DIRECTLY              :: GENERATE_SPIRV_DIRECTLY;
 }
 
-kDefaultTargetFlags: SlangTargetFlags : xx SLANG_TARGET_FLAG.GENERATE_SPIRV_DIRECTLY;
+kDefaultTargetFlags: SlangTargetFlags : .GENERATE_SPIRV_DIRECTLY;
 
 /*!
 @brief Options to control floating-point precision guarantees for a target.
@@ -1225,9 +1225,9 @@ TargetDesc :: struct {
     compilerOptionEntryCount:    u32 = 0;
 }
 
-SessionFlags :: u32;
-anon_enum_1 :: enum s32 {
-    kSessionFlags_None :: 0;
+SessionFlags :: SessionFlag;
+SessionFlag :: enum_flags s32 {
+    kSessionFlags_None :: 0x0;
 }
 
 PreprocessorMacroDesc :: struct {
@@ -1247,7 +1247,7 @@ SessionDesc :: struct {
 
     /** Flags to configure the session.
     */
-    flags:                    SessionFlags = xx anon_enum_1.kSessionFlags_None;
+    flags:                    SessionFlags = .kSessionFlags_None;
 
     /** Default layout to assume for variables with matrix types.
     */
