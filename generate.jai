@@ -47,11 +47,41 @@ generate_bindings :: () -> bool {
 
 #scope_file
 
+last_visited_flag_typedef: *Typedef;
+
 slang_visitor :: (decl: *Declaration, parent_decl: *Declaration) -> result: Declaration_Visit_Result = .RECURSE {
     // This is being set to an invalid `~u64(0)`, so manually setting it to `U64_MAX` to make it unbounded.
     if decl.name == "SLANG_UNBOUNDED_SIZE" {
         literal := cast(*Literal) decl.expression;
         literal.raw_value = tprint("%", U64_MAX);
+    }
+
+    // Replace Flags typedefs to use the "_FLAG" declaration.
+    if decl.kind == .TYPEDEF && ends_with(decl.name, "Flags") {
+        typedef := cast(*Typedef) decl;
+
+        last_visited_flag_typedef = typedef;
+    }
+
+    // Modifies `_FLAG` enums to enum_flags and unsigned, and assigns it to the last declared Flags typedef.
+    // They're defined as anonymous enums, so we will also give them a better name.
+    if decl.kind == .ENUM && decl.name == "" && last_visited_flag_typedef {
+        typedef := last_visited_flag_typedef;
+
+        en := cast(*Enum) decl;
+        decl.name = slice(typedef.name, 0, typedef.name.count - 1);
+        decl.output_name = decl.name;
+
+        en.flags |= .IS_ENUM_FLAGS;
+        en.flags |= .VALUES_IN_HEX;
+
+        type := New(CType);
+        type.type_of_enum = en;
+        type.size = en.type.size;
+
+        typedef.type = type;
+
+        last_visited_flag_typedef = null;
     }
 
     return;
