@@ -50,6 +50,7 @@ generate_bindings :: () -> bool {
 #scope_file
 
 last_visited_flag_typedef: *Typedef;
+last_visisted_flag_type: *Type;
 
 slang_visitor :: (decl: *Declaration, parent_decl: *Declaration) -> result: Declaration_Visit_Result = .RECURSE {
     // This is being set to an invalid `~u64(0)`, so manually setting it to `U64_MAX` to make it unbounded.
@@ -77,6 +78,10 @@ slang_visitor :: (decl: *Declaration, parent_decl: *Declaration) -> result: Decl
         en.flags |= .IS_ENUM_FLAGS;
         en.flags |= .VALUES_IN_HEX;
 
+        // Assign the enum's type to the flag type.
+        en.type = typedef.type;
+
+        // Point the typedef to the Flag enum.
         type := New(CType);
         type.type_of_enum = en;
         type.size = en.type.size;

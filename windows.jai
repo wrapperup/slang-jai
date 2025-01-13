@@ -378,7 +378,7 @@ SlangArchiveType :: enum SlangArchiveTypeIntegral {
 Flags to control compilation behavior.
 */
 SlangCompileFlags :: SlangCompileFlag;
-SlangCompileFlag :: enum_flags s32 {
+SlangCompileFlag :: enum_flags u32 {
     NO_MANGLING       :: 0x8;
 
     NO_CODEGEN        :: 0x10;
@@ -401,7 +401,7 @@ SlangCompileFlag :: enum_flags s32 {
 /*!
 @brief Flags to control code generation behavior of a compilation target */
 SlangTargetFlags :: SlangTargetFlag;
-SlangTargetFlag :: enum_flags s32 {
+SlangTargetFlag :: enum_flags u32 {
     PARAMETER_BLOCKS_USE_REGISTER_SPACES :: 0x10;
 
     GENERATE_WHOLE_PROGRAM               :: 0x100;
@@ -1279,7 +1279,7 @@ TargetDesc :: struct {
 }
 
 SessionFlags :: SessionFlag;
-SessionFlag :: enum_flags s32 {
+SessionFlag :: enum_flags u32 {
     kSessionFlags_None :: 0x0;
 }
 
