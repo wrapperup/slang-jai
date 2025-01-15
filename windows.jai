@@ -523,6 +523,8 @@ SlangStage :: enum SlangStageIntegral {
     MESH           :: 13;
     AMPLIFICATION  :: 14;
 
+    COUNT          :: 15;
+
     PIXEL          :: 5;
 
     SLANG_STAGE_NONE           :: NONE;
@@ -540,6 +542,8 @@ SlangStage :: enum SlangStageIntegral {
     SLANG_STAGE_CALLABLE       :: CALLABLE;
     SLANG_STAGE_MESH           :: MESH;
     SLANG_STAGE_AMPLIFICATION  :: AMPLIFICATION;
+
+    SLANG_STAGE_COUNT          :: COUNT;
 
     SLANG_STAGE_PIXEL          :: PIXEL;
 }
@@ -717,34 +721,35 @@ CompilerOptionName :: enum s32 {
     ValidateUniformity               :: 90;
     AllowGLSL                        :: 91;
     EnableExperimentalPasses         :: 92;
+    BindlessSpaceIndex               :: 93;
 
-    ArchiveType                      :: 93;
-    CompileCoreModule                :: 94;
-    Doc                              :: 95;
-    IrCompression                    :: 96;
-    LoadCoreModule                   :: 97;
-    ReferenceModule                  :: 98;
-    SaveCoreModule                   :: 99;
-    SaveCoreModuleBinSource          :: 100;
-    TrackLiveness                    :: 101;
-    LoopInversion                    :: 102;
+    ArchiveType                      :: 94;
+    CompileCoreModule                :: 95;
+    Doc                              :: 96;
+    IrCompression                    :: 97;
+    LoadCoreModule                   :: 98;
+    ReferenceModule                  :: 99;
+    SaveCoreModule                   :: 100;
+    SaveCoreModuleBinSource          :: 101;
+    TrackLiveness                    :: 102;
+    LoopInversion                    :: 103;
 
-    ParameterBlocksUseRegisterSpaces :: 103;
+    ParameterBlocksUseRegisterSpaces :: 104;
 
-    CountOfParsableOptions           :: 104;
+    CountOfParsableOptions           :: 105;
 
-    DebugInformationFormat           :: 105;
-    VulkanBindShiftAll               :: 106;
-    GenerateWholeProgram             :: 107;
-    UseUpToDateBinaryModule          :: 108;
+    DebugInformationFormat           :: 106;
+    VulkanBindShiftAll               :: 107;
+    GenerateWholeProgram             :: 108;
+    UseUpToDateBinaryModule          :: 109;
 
-    EmbedDownstreamIR                :: 109;
-    ForceDXLayout                    :: 110;
+    EmbedDownstreamIR                :: 110;
+    ForceDXLayout                    :: 111;
 
-    EmitSpirvMethod                  :: 111;
+    EmitSpirvMethod                  :: 112;
 
-    EmitReflectionJSON               :: 112;
-    CountOf                          :: 113;
+    EmitReflectionJSON               :: 113;
+    CountOf                          :: 114;
 }
 
 CompilerOptionValueKind :: enum s32 {
